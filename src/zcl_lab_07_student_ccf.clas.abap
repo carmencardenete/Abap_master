@@ -1,0 +1,20 @@
+CLASS zcl_lab_07_student_ccf DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+  data BIRTH_DATE type ZDATE read-ONLY.
+  metHODS SET_BIRTH_DATE  impoRTING iv_date type zdate.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_lab_07_student_ccf IMPLEMENTATION.
+  METHOD set_birth_date.
+    BIRTH_DATE = iv_date.
+  ENDMETHOD.
+
+ENDCLASS.
