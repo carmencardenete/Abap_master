@@ -84,12 +84,87 @@ CLASS zcl_lab_01_ejec_ccf IMPLEMENTATION.
 *
 *  out->write( iban ).
 **********************************************************************
-*ejercicio constructor estatico y  de instancia
-    DATA(lo_lab12) = NEW zcl_lab_10_constructor( ).
-    out->write( zcl_lab_10_constructor=>log ).
-    DATA(lo_lab12_2) = NEW zcl_lab_10_constructor( ).
-    out->write( zcl_lab_10_constructor=>log ).
-
-
+**ejercicio constructor estatico y  de instancia
+*    DATA(lo_lab12) = NEW zcl_lab_10_constructor( ).
+*    out->write( zcl_lab_10_constructor=>log ).
+*    DATA(lo_lab12_2) = NEW zcl_lab_10_constructor( ).
+*    out->write( zcl_lab_10_constructor=>log ).
+**********************************************************************
+**1- herencia
+*  data(lo_lab12) = new zcl_lab_12_linux_ccf( ).
+*  lo_lab12->get_architecture(
+*    IMPORTING
+*      ev_architecture = data(lv_archi)  ).
+*  out->write( lv_archi ).
+**********************************************************************
+**3- redefinir
+*    DATA lv_flight TYPE /dmo/flight.
+*    DATA(lo_lab15) = NEW zcl_lab_15_flight_price_ccf( ).
+*    DATA(lo_lab16) = NEW zcl_lab_16_price_discount_ccf( ).
+*    DATA(lo_lab17) = NEW zcl_lab_17_super_discount_ccf( ).
+*    lv_flight-carrier_id = '1'.
+*    lv_flight-price = 100.
+*    lo_lab15->add_price( iv_flight = lv_flight ).
+*    lo_lab16->add_price( iv_flight = lv_flight ).
+*    lo_lab17->add_price( iv_flight = lv_flight ).
+*    out->write( lo_lab15->mt_flights  ).
+*    out->write( lo_lab16->mt_flights  ).
+*    out->write( lo_lab17->mt_flights  ).
+**********************************************************************
+* 4 y 5
+*    DATA(lo_lab18) = NEW zcl_lab_18_animal_ccf( ).
+*    DATA(lo_lab19) = NEW zcl_lab_19_lion_ccf( ).
+**  Narrowing
+*    lo_lab18  = lo_lab19.
+*    out->write( lo_lab18->walk( ) ).
+*    out->write( lo_lab19->walk( ) ).
+** Widening Cast
+*    TRY.
+*        lo_lab19 ?= lo_lab18.
+*        out->write( lo_lab18->walk( ) ).
+*        out->write( lo_lab19->walk( ) ).
+*      CATCH  cx_sy_move_cast_error ."system-exceptions.
+*        out->write( 'Error' ).
+*    ENDTRY.
+**********************************************************************
+*8 encap. de instacian
+*    DATA(lo_lab21) = NEW zcl_lab_21_classroom_ccf( ).
+*    DATA(lo_lab22) = NEW zcl_lab_22_student_ccf( ).
+**********************************************************************
+**-9 clases amiga.
+*    DATA(lo_lab24) = NEW zcl_lab_24_partner_ccf( ).
+*    out->write( lo_lab24->get_company_capital( ) ).
+*    DATA(lo_lab25) = NEW zcl_lab_25_collaborator_ccf( ).
+*    out->write( lo_lab25->capital( ) ).
+**********************************************************************
+** 1- interfases
+*    DATA(lo_lab26) = NEW zcl_lab_26_flights_ccf( ).
+*    lo_lab26->zif_lab_01_flight_ccf~set_comp( '1235' ).
+*    lo_lab26->zif_lab_01_flight_ccf~set_conn_id( 'otro' ).
+*    out->write( | Comp: { lo_lab26->zif_lab_01_flight_ccf~get_comp(  ) }| ).
+*    out->write( | Conn id: { lo_lab26->zif_lab_01_flight_ccf~get_conn_id(  ) }| ).
+*
+**3- interfase multiples.
+*    out->write( lo_lab26->zif_lab_02_customer_ccf~get_customer( iv_customer_id = '123' ) ) .
+**4 - interfases anidados.
+*    out->write( lo_lab26->zif_lab_03_airports_ccf~get_airports( iv_airport_id = '001' ) ) .
+* Alias.
+** 1- interfases
+*    DATA(lo_lab26) = NEW zcl_lab_26_flights_ccf( ).
+*    lo_lab26->set_comp( '1235' ).
+*    lo_lab26->set_conn_id( 'otro' ).
+*    out->write( | Comp: { lo_lab26->get_comp(  ) }| ).
+*    out->write( | Conn id: { lo_lab26->get_conn_id(  ) }| ).
+*
+**3- interfase multiples.
+*    out->write( lo_lab26->get_customer( iv_customer_id = '123' ) ) .
+**4 - interfases anidados.
+*    out->write( lo_lab26->get_airports( iv_airport_id = '001' ) ) .
+**********************************************************************
+*6 clase abs.
+    DATA(lo_lab28) = NEW zcl_lab_28_logistics_ccf( ).
+    out->write( lo_lab28->input_products( ) ) .
+    out->write( lo_lab28->merchandise_output( ) ) .
+    out->write( lo_lab28->production_line( ) ) .
   ENDMETHOD.
 ENDCLASS.
