@@ -1,0 +1,15 @@
+CLASS zcl_lab_39_budget_ccf DEFINITION abSTRACT
+  PUBLIC
+*  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+    methods GET_BUDGET absTRACT returning VALUE(rv_tipo) type string.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_lab_39_budget_ccf IMPLEMENTATION.
+ENDCLASS.

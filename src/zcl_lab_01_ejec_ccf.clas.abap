@@ -162,9 +162,78 @@ CLASS zcl_lab_01_ejec_ccf IMPLEMENTATION.
 *    out->write( lo_lab26->get_airports( iv_airport_id = '001' ) ) .
 **********************************************************************
 *6 clase abs.
-    DATA(lo_lab28) = NEW zcl_lab_28_logistics_ccf( ).
-    out->write( lo_lab28->input_products( ) ) .
-    out->write( lo_lab28->merchandise_output( ) ) .
-    out->write( lo_lab28->production_line( ) ) .
+*    DATA(lo_lab28) = NEW zcl_lab_28_logistics_ccf( ).
+*    out->write( lo_lab28->input_products( ) ) .
+*    out->write( lo_lab28->merchandise_output( ) ) .
+*    out->write( lo_lab28->production_line( ) ) .
+**********************************************************************
+*1 POLIMORFISMO
+*  DATA: lt_class type table of ref TO zcl_lab_29_organization_ccf.
+*  DATA(lo_lab29) = NEW zcl_lab_29_organization_ccf( ).
+*  DATA(lo_lab30) = NEW zcl_lab_30_org_germany_ccf( ).
+*  DATA(lo_lab31) = NEW zcl_lab_31_org_france_ccf( ).
+*  append lo_lab30 to lt_class.
+*  append lo_lab31 to lt_class.
+*  loop at lt_class into lo_lab29.
+*    out->write( lo_lab29->get_location( ) ).
+*  endLOOP.
+**********************************************************************
+*2 poli inte
+*  DATA: lt_class type table of ref TO zif_lab_04_employee_ccf.
+*  DATA: ls_class type ref to zif_lab_04_employee_ccf.
+*  DATA(lo_lab32) = NEW zcl_lab_32_internal_empl_ccf( ).
+*  DATA(lo_lab33) = NEW zcl_lab_33_expatriate_empl_ccf( ).
+*  append lo_lab32 to lt_class.
+*  append lo_lab33 to lt_class.
+*  loop at lt_class into ls_class.
+*    out->write( ls_class->get_employees_count( ) ).
+*  endLOOP.
+**********************************************************************
+**asociacion.
+*
+*    DATA(lo_lab34) = NEW zcl_lab_34_student_ccf( ).
+*    DATA(lo_lab35) = NEW zcl_lab_35_college_ccf( ).
+*    lo_lab34->set( 'Pepito' ).
+*    lo_lab35->enroll_student( io_student = lo_lab34  ).
+*    out->write( lo_lab35->lo_student->get(  ) ).
+**********************************************************************
+** composicion
+**    DATA(lo_lab36) = NEW zcl_lab_36_phone_ccf( ). " se tiene que pasar la instancia de screen
+*    DATA(lo_lab37) = NEW zcl_lab_37_screen_ccf( ).
+*    DATA(lo_lab36) = NEW zcl_lab_36_phone_ccf( lo_lab37 ).
+*    out->write( lo_lab37->get( ) ).
+**********************************************************************
+* DATA(lo_lab38) = NEW zcl_lab_38_prod_price_ccf( ).
+* DATA(lo_lab382) = NEW zcl_lab_38_prod_price_ccf( ).
+* lo_lab382->price = 'nuevo'.
+* lo_lab38->price = '123'.
+* out->write( lo_lab382->price ).
+*out->write( lo_lab38->price ).
+***********************************************************************
+*    DATA lo_lab39 TYPE REF  TO zcl_lab_39_budget_ccf.
+*    lo_lab39 = NEW zcl_lab_40_actual_budget_ccf( ).
+*    out->write( lo_lab39->get_budget(  ) ).
+**********************************************************************
+    DATA lo_lab41 TYPE REF  TO OBJECT.
+    data: gv_method_name type string value 'SET_HEADQUARTERS',
+          gv_method_name2 type string value 'GET_HEADQUARTERS',
+          lv_result type string.
+    lo_lab41 = NEW zcl_lab_41_organization_ccf( ).
+
+  CALL METHOD lo_lab41->(gv_method_name)
+     EXPORTING iv_head = 'prueba'.
+
+     CALL METHOD lo_lab41->(gv_method_name2)
+        importing iv_head = lv_result.
+    out->write( lv_result ).
+
+
+
+
+
+
+
+
+
   ENDMETHOD.
 ENDCLASS.

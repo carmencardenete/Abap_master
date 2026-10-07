@@ -1,0 +1,19 @@
+CLASS zcl_lab_40_actual_budget_ccf DEFINITION iNHERITING FROM ZCL_LAB_39_BUDGET_CCF
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+    METHODS: get_budget REDEFINITION.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_lab_40_actual_budget_ccf IMPLEMENTATION.
+  METHOD get_budget.
+    rv_tipo = 'cadena'.
+  ENDMETHOD.
+
+ENDCLASS.

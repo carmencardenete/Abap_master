@@ -1,0 +1,21 @@
+CLASS zcl_lab_36_phone_ccf DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+    METHODS constructor IMPORTING lo_SCREEN TYPE REF TO zcl_lab_37_screen_ccf.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_lab_36_phone_ccf IMPLEMENTATION.
+  METHOD constructor.
+
+    lo_SCREEN->set( 'ESP' ).
+
+  ENDMETHOD.
+
+ENDCLASS.

@@ -1,0 +1,15 @@
+CLASS zcl_lab_38_prod_price_ccf DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+    data  PRICE type string.
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zcl_lab_38_prod_price_ccf IMPLEMENTATION.
+ENDCLASS.
