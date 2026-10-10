@@ -214,26 +214,38 @@ CLASS zcl_lab_01_ejec_ccf IMPLEMENTATION.
 *    lo_lab39 = NEW zcl_lab_40_actual_budget_ccf( ).
 *    out->write( lo_lab39->get_budget(  ) ).
 **********************************************************************
-    DATA lo_lab41 TYPE REF  TO OBJECT.
-    data: gv_method_name type string value 'SET_HEADQUARTERS',
-          gv_method_name2 type string value 'GET_HEADQUARTERS',
-          lv_result type string.
-    lo_lab41 = NEW zcl_lab_41_organization_ccf( ).
+*    DATA lo_lab41 TYPE REF  TO OBJECT.
+*    data: gv_method_name type string value 'SET_HEADQUARTERS',
+*          gv_method_name2 type string value 'GET_HEADQUARTERS',
+*          lv_result type string.
+*    lo_lab41 = NEW zcl_lab_41_organization_ccf( ).
+*
+*  CALL METHOD lo_lab41->(gv_method_name)
+*     EXPORTING iv_head = 'prueba'.
+*
+*     CALL METHOD lo_lab41->(gv_method_name2)
+*        importing iv_head = lv_result.
+*    out->write( lv_result ).
 
-  CALL METHOD lo_lab41->(gv_method_name)
-     EXPORTING iv_head = 'prueba'.
+*  data(lo_lab42) = new zcl_lab_42_screen_ccf( 'Nueva pantalla'  ).
+*  data(lo_lab43) = new zcl_lab_43_navigation_ccf(  ).
+*  set haNDLER lo_lab43->on_touch_screen fOR lo_lab42.
+*
+*   lo_lab42->element_selected( ).
+*
+*  out->write( lo_lab43->v_log ).
 
-     CALL METHOD lo_lab41->(gv_method_name2)
-        importing iv_head = lv_result.
-    out->write( lv_result ).
+    DATA(lo_lab44) = NEW zcl_lab_44_operating_systemccf(   ).
+    DATA(lo_lab45) = NEW zcl_lab_45_chrome_ccf(  ).
+    SET HANDLER lo_lab45->on_close_window FOR lo_lab44.
 
-
-
-
-
-
-
-
-
+    DO 5 TIMES.
+      out->write( lo_lab44->mouse_movement( ) ).
+      out->write( lo_lab45->v_log ).
+      IF sy-index = 3.
+        SET HANDLER lo_lab45->on_close_window FOR lo_lab44 ACTIVATION abap_false.
+        lo_lab45->v_log = 'No lanzado'.
+      ENDIF.
+    ENDDO.
   ENDMETHOD.
 ENDCLASS.
