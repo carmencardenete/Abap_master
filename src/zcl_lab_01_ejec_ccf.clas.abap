@@ -235,17 +235,41 @@ CLASS zcl_lab_01_ejec_ccf IMPLEMENTATION.
 *
 *  out->write( lo_lab43->v_log ).
 
-    DATA(lo_lab44) = NEW zcl_lab_44_operating_systemccf(   ).
-    DATA(lo_lab45) = NEW zcl_lab_45_chrome_ccf(  ).
-    SET HANDLER lo_lab45->on_close_window FOR lo_lab44.
+*    DATA(lo_lab44) = NEW zcl_lab_44_operating_systemccf(   ).
+*    DATA(lo_lab45) = NEW zcl_lab_45_chrome_ccf(  ).
+*    SET HANDLER lo_lab45->on_close_window FOR lo_lab44.
+*
+*    DO 5 TIMES.
+*      out->write( lo_lab44->mouse_movement( ) ).
+*      out->write( lo_lab45->v_log ).
+*      IF sy-index = 3.
+*        SET HANDLER lo_lab45->on_close_window FOR lo_lab44 ACTIVATION abap_false.
+*        lo_lab45->v_log = 'No lanzado'.
+*      ENDIF.
+*    ENDDO.
+*
+*
+*    SET HANDLER zcl_lab_47_customer_serviceccf=>on_new_call .
+*    zcl_lab_46_mobile_operator_ccf=>assign_call( iv_phone_number = '123 58 22 22 '  ).
+*    out->write( zcl_lab_47_customer_serviceccf=>v_log ).
 
-    DO 5 TIMES.
-      out->write( lo_lab44->mouse_movement( ) ).
-      out->write( lo_lab45->v_log ).
-      IF sy-index = 3.
-        SET HANDLER lo_lab45->on_close_window FOR lo_lab44 ACTIVATION abap_false.
-        lo_lab45->v_log = 'No lanzado'.
-      ENDIF.
-    ENDDO.
+    DATA(lo_lab48_1) = NEW zcl_lab_48_administrative_dccf( 'Empleado 1'  ).
+    DATA(lo_lab48_2) = NEW zcl_lab_48_administrative_dccf( 'Empleado 2'  ).
+    DATA(lo_lab48_3) = NEW zcl_lab_48_administrative_dccf( 'Empleado 3'  ).
+
+    DATA(lo_lab49) = NEW zcl_lab_49_employee_ccf(  ).
+    SET HANDLER lo_lab49->on_payroll_paid FOR ALL INSTANCES.
+
+
+    out->write( lo_lab48_1->notify_employee( ) ).
+    out->write( lo_lab48_2->notify_employee( ) ).
+    out->write( lo_lab48_3->notify_employee( ) ).
+
+    out->write( lo_lab49->it_table ).
+
+
+
+
+
   ENDMETHOD.
 ENDCLASS.
