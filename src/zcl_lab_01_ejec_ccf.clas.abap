@@ -253,23 +253,44 @@ CLASS zcl_lab_01_ejec_ccf IMPLEMENTATION.
 *    zcl_lab_46_mobile_operator_ccf=>assign_call( iv_phone_number = '123 58 22 22 '  ).
 *    out->write( zcl_lab_47_customer_serviceccf=>v_log ).
 
-    DATA(lo_lab48_1) = NEW zcl_lab_48_administrative_dccf( 'Empleado 1'  ).
-    DATA(lo_lab48_2) = NEW zcl_lab_48_administrative_dccf( 'Empleado 2'  ).
-    DATA(lo_lab48_3) = NEW zcl_lab_48_administrative_dccf( 'Empleado 3'  ).
+*    DATA(lo_lab48_1) = NEW zcl_lab_48_administrative_dccf( 'Empleado 1'  ).
+*    DATA(lo_lab48_2) = NEW zcl_lab_48_administrative_dccf( 'Empleado 2'  ).
+*    DATA(lo_lab48_3) = NEW zcl_lab_48_administrative_dccf( 'Empleado 3'  ).
+*
+*    DATA(lo_lab49) = NEW zcl_lab_49_employee_ccf(  ).
+*    SET HANDLER lo_lab49->on_payroll_paid FOR ALL INSTANCES.
+*
+*
+*    out->write( lo_lab48_1->notify_employee( ) ).
+*    out->write( lo_lab48_2->notify_employee( ) ).
+*    out->write( lo_lab48_3->notify_employee( ) ).
+*
+*    out->write( lo_lab49->it_table ).
 
-    DATA(lo_lab49) = NEW zcl_lab_49_employee_ccf(  ).
-    SET HANDLER lo_lab49->on_payroll_paid FOR ALL INSTANCES.
-
-
-    out->write( lo_lab48_1->notify_employee( ) ).
-    out->write( lo_lab48_2->notify_employee( ) ).
-    out->write( lo_lab48_3->notify_employee( ) ).
-
-    out->write( lo_lab49->it_table ).
-
-
-
-
-
+**********************************************************************
+*excepciones
+*  data(lo_exp) = new zcl_lab_53_check_user_ccf(  ).
+*  try.
+*  lo_exp->check_user( sy-uname  ).
+*
+*  CATCH zcx_lab_52_operations_ccf into data(lo_lab52).
+*    out->write( lo_lab52->get_text(  ) ).
+*  enDTRY.
+****
+  data(lo_exp) = new zcl_lab_53_check_user_ccf(  ).
+  data: lv_uno type i value 10,
+        lv_dos type i,
+        lv_result type i.
+  try.
+*  lo_exp->check_user( sy-uname  ).
+   lv_result = lv_uno / lv_dos.
+  CATCH zcx_lab_52_operations_ccf into data(lo_lab52).
+    out->write( lo_lab52->get_text(  ) ).
+  catCH CX_SY_ZERODIVIDE into data(lo_cero).
+     out->write( lo_cero->get_text(  ) ).
+     lv_dos = 2.
+     retry.
+  enDTRY.
+ out->write( lv_result ).
   ENDMETHOD.
 ENDCLASS.
