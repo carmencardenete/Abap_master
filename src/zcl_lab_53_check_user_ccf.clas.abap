@@ -4,8 +4,9 @@ CLASS zcl_lab_53_check_user_ccf DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+
     methods CHECK_USER importing iv_user type syuname
-                       raisING zcx_lab_52_operations_ccf.
+                       raisING  zcx_lab_52_operations_ccf.
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.

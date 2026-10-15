@@ -277,20 +277,84 @@ CLASS zcl_lab_01_ejec_ccf IMPLEMENTATION.
 *    out->write( lo_lab52->get_text(  ) ).
 *  enDTRY.
 ****
-  data(lo_exp) = new zcl_lab_53_check_user_ccf(  ).
-  data: lv_uno type i value 10,
-        lv_dos type i,
-        lv_result type i.
-  try.
-*  lo_exp->check_user( sy-uname  ).
-   lv_result = lv_uno / lv_dos.
-  CATCH zcx_lab_52_operations_ccf into data(lo_lab52).
-    out->write( lo_lab52->get_text(  ) ).
-  catCH CX_SY_ZERODIVIDE into data(lo_cero).
-     out->write( lo_cero->get_text(  ) ).
-     lv_dos = 2.
-     retry.
-  enDTRY.
- out->write( lv_result ).
+*  data(lo_exp) = new zcl_lab_53_check_user_ccf(  ).
+*  data: lv_uno type i value 10,
+*        lv_dos type i,
+*        lv_result type i.
+*  try.
+**  lo_exp->check_user( sy-uname  ).
+*   lv_result = lv_uno / lv_dos.
+*  CATCH zcx_lab_52_operations_ccf into data(lo_lab52).
+*    out->write( lo_lab52->get_text(  ) ).
+*  catCH CX_SY_ZERODIVIDE into data(lo_cero).
+*     out->write( lo_cero->get_text(  ) ).
+*     lv_dos = 2.
+*     retry.
+*  enDTRY.
+* out->write( lv_result ).
+
+*cleanup
+*
+*    DATA: gv_resultado      TYPE i,
+*          gcx_exception     TYPE REF TO cx_root,
+*          gcx_excep_cleanup TYPE REF TO cx_root.
+*    DATA: pa_n1 TYPE i VALUE 10,
+*          pa_n2 TYPE i.
+*
+*
+*    TRY.
+*        TRY.
+*            gv_resultado = pa_n1 / pa_n2.
+*
+*          CATCH zcx_01_auth_log_c460_ccf INTO DATA(lo_lab57).
+*            out->write( lo_lab57->get_text(  ) ).
+*
+*          CLEANUP INTO gcx_excep_cleanup.
+*            out->Write(   'Resultado cleanup' ).
+*            out->Write( |Resultado = { gv_resultado }  | ).
+*            out->Write( gcx_excep_cleanup->get_text( ) ).
+*
+*        ENDTRY.
+*
+*      CATCH cx_sy_zerodivide INTO gcx_exception.
+*
+*        out->Write( gcx_exception->get_text( ) ).
+**
+*    ENDTRY.
+
+* excepciones reanudables.
+*    DATA(lo_lab54) = NEW zcl_lab_54_bank_ccf(  ).
+*
+*    TRY.
+*
+*        lo_lab54->transfer( iv_iban =  'ES95 4329 8765 4321' ).
+*        out->write( lo_lab54->v_log ).
+*        out->write( 'Reanudada' ).
+*      CATCH BEFORE  UNWIND zcx_lab_55_auth_iban_ccf INTO DATA(lo_lab55).
+*        IF lo_lab55->is_resumable = abap_true.
+*          out->write( lo_lab55->get_text( ) ).
+*          RESUME.
+*        ENDIF.
+*    ENDTRY.
+
+*    DATA(lo_lab58) = NEW zcl_lab_58_date_analyzer_ccf(  ).
+*
+*
+*    TRY.
+*        lo_lab58->analyze_date(   ).
+*      CATCH zcx_lab_56_no_date_ccf INTO DATA(lo_lab56).
+*        TRY.
+*            lo_lab58->analyze_format( lo_lab56  ).
+*          CATCH zcx_lab_57_format_ccf INTO DATA(lo_lab57).
+*           out->write( |{ lo_lab57->get_text( ) } - previo - { lo_lab57->previous->get_text( ) } | ).
+*        ENDTRY.
+*    ENDTRY.
+    DATA lo_lab62  TYPE REF TO zcl_lab_62_context_ccf.
+    DATA lo_lab63  TYPE REF TO zcl_lab_62_context_ccf.
+    lo_lab62 = zcl_lab_62_context_ccf=>get_instancia( ).
+     out->write( lo_lab62->v_time ).
+    wait up to 2 SECONDS.
+    lo_lab63 = zcl_lab_62_context_ccf=>get_instancia( ).
+     out->write( lo_lab63->v_time ).
   ENDMETHOD.
 ENDCLASS.
